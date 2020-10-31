@@ -32,7 +32,7 @@ class Customer {
     }
     vBill_Date() {
         let c = new Date();
-        c.setMonth(c.getMonth());
+        c.setMonth(c.getMonth()-1);
 
         if (this.bill_date > c) {
             return false;
