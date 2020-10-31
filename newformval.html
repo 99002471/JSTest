@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Payment portal</title>
+    <script src="CommonFunctions.js"></script> 
+    <style>
+        body
+        {
+            font-size: 16px;
+            background-color: rgb(162, 222, 250);
+             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        h1
+        {
+          text-align: center;  
+        }
+
+        form{
+            width : 350px;
+            padding : 15px;
+            border : 2px solid lightgray;
+            margin: 50px auto 0;
+            border-radius: 5px;  
+        }
+
+        label{
+            display:block;
+            margin-bottom: 5px;
+        }
+        button{
+            display:block;
+            width:20%;
+            height:20px;
+            border-color:burlywood;
+            background-color:brown;
+            margin-top: 10px;
+            box-shadow: 0 5px 3px rgb(87, 87, 104);
+        }
+    </style>
+    <script>
+         function showErr(ele, msg){
+            $get(ele).innerText = msg;
+        }
+        function validate(){
+            //get all the values....
+            let name = document.regForm.name.value;
+            let email = document.regForm.email.value;
+            let mobile = document.regForm.phone.value;
+            let dates = document.regForm.dates.value;
+            let amount = document.regForm.amount.value;
+            //name validation
+            if(name == "" || name == null)
+            {
+                showErr("errName", "Name is mandatory")
+                return false;
+            }
+            else
+            {
+                showErr("errName", "")
+            }
+            if(email==null)
+            {
+                showErr("errEmail","Email is mandatry");
+            }
+            let regEx = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
+            if(regEx.test(email)==false)
+            {
+                showErr("errEmail","Email is not in correct format");
+                return false;
+            }
+            else
+            {
+                showErr("errEmail","");
+            }
+            if(mobile == "" || mobile == null){
+                showErr("errPhone", "Phone number is mandatory!!!")
+                return false;
+            }else{
+                showErr("errPhone", "")
+            }
+            regEx = new RegExp("(0/91)?[7-9][0-9]{9}");
+            if(!(regEx.test(mobile))){
+                showErr("errPhone", "Mobile is not in a valid format!!!")
+                return false;
+            } else {
+                showErr("errPhone", "")
+            }
+            //Date validation
+            if(dates == "" || dates == null){
+                showErr("errDate", "Date is mandatory!!!")
+                return false;
+            }
+            regEx= new RegExp("^([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$");
+            if((!regEx.test(dates))){
+                showErr("errDate", "Date is not in a valid format(DD-MM-YYYY)")
+                return false;
+            } else {
+                showErr("errDate", "")
+            }
+
+            //Amount validation
+            if(amount == "0" || amount == null)
+            {
+                showErr("errAmount", "Enter a valid amount")
+                return false;
+            }
+            else
+            {
+                showErr("errAmount", "")
+            }
+            let a=[];
+        }
+    </script>
+</head>
+<body>
+    <h1>Payment portal</h1>
+    <form action="" name="regForm" novalidate="true" onsubmit="return validate()">
+        
+        <div class="row">
+            <label for="name">Full Name</label>
+            <input type="text" name="name" id="name"/>
+            <div id="errName" class="err"></div>
+        </div>
+        <div class="row">
+            <label for="email">Email Address</label>
+            <input type="email" name="email" id="email" />
+            <div id="errEmail" class="err"></div>
+        </div>
+        <div class="row">
+            <label for="phone">Mobile phone</label>
+            <input type="text" id="phone" name="phone" />
+            <div id="errPhone" class="err"></div>
+        </div>
+        <div class="row">
+            <label for="dates">date</label>
+            <input type="text" id="dates" name="dates" />
+            <div id="errDate" class="err"></div>
+        </div>
+        <div class="row">
+            <label for="amount">Amount</label>
+            <input type="text" name="amount" id="amount"/>
+            <div id="errAmount" class="err"></div>
+        </div>
+        <button onclick="onSubmit()">Pay</button>
+    </form>
+</body>
+</html>
